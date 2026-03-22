@@ -1,0 +1,126 @@
+{
+  "name": "brazuka-utils",
+  "version": "0.1.0",
+  "description": "A modern TypeScript utility library for Brazilian developers — CPF, CNPJ, CEP, phone, currency, plate validation, formatting, and lookup.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./cpf": {
+      "import": {
+        "types": "./dist/cpf/index.d.ts",
+        "default": "./dist/cpf/index.js"
+      },
+      "require": {
+        "types": "./dist/cpf/index.d.cts",
+        "default": "./dist/cpf/index.cjs"
+      }
+    },
+    "./cnpj": {
+      "import": {
+        "types": "./dist/cnpj/index.d.ts",
+        "default": "./dist/cnpj/index.js"
+      },
+      "require": {
+        "types": "./dist/cnpj/index.d.cts",
+        "default": "./dist/cnpj/index.cjs"
+      }
+    },
+    "./cep": {
+      "import": {
+        "types": "./dist/cep/index.d.ts",
+        "default": "./dist/cep/index.js"
+      },
+      "require": {
+        "types": "./dist/cep/index.d.cts",
+        "default": "./dist/cep/index.cjs"
+      }
+    },
+    "./phone": {
+      "import": {
+        "types": "./dist/phone/index.d.ts",
+        "default": "./dist/phone/index.js"
+      },
+      "require": {
+        "types": "./dist/phone/index.d.cts",
+        "default": "./dist/phone/index.cjs"
+      }
+    },
+    "./currency": {
+      "import": {
+        "types": "./dist/currency/index.d.ts",
+        "default": "./dist/currency/index.js"
+      },
+      "require": {
+        "types": "./dist/currency/index.d.cts",
+        "default": "./dist/currency/index.cjs"
+      }
+    },
+    "./plate": {
+      "import": {
+        "types": "./dist/plate/index.d.ts",
+        "default": "./dist/plate/index.js"
+      },
+      "require": {
+        "types": "./dist/plate/index.d.cts",
+        "default": "./dist/plate/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage",
+    "lint": "eslint src/ tests/",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "release": "pnpm build && changeset publish"
+  },
+  "keywords": [
+    "brazil",
+    "brasil",
+    "cpf",
+    "cnpj",
+    "cep",
+    "phone",
+    "currency",
+    "plate",
+    "validation",
+    "formatting",
+    "utilities",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitest/coverage-v8": "^2.0.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.3.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^2.0.0"
+  }
+}
