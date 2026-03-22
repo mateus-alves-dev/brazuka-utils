@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { validateCPF, formatCPF, generateCPF } from '../src/cpf/index.js'
 import { InvalidInputError } from '../src/types/index.js'
 
@@ -101,5 +101,57 @@ describe('generateCPF', () => {
     }
     // At least 2 unique values (extremely unlikely to get all same)
     expect(cpfs.size).toBeGreaterThan(1)
+  })
+
+  it('handles first check digit remainder === 10', () => {
+    // Mock to force digits that yield remainder 10 for first check
+    // Using vi.stubGlobal to control Math.random
+    let callCount = 0
+    const mockRandom = vi.fn(() => {
+      // Returns sequence: [1, 3, 1, 5, 4, 7, 1, 4, 5] for first 9 calls
+      // Sum = 1*10 + 3*9 + 1*8 + 5*7 + 4*6 + 7*5 + 1*4 + 4*3 + 5*2
+      //     = 10 + 27 + 8 + 35 + 24 + 35 + 4 + 12 + 10 = 165
+      // (165 * 10) % 11 = 1650 % 11 = 10 ✓
+      const values = [0.1, 0.3, 0.1, 0.5, 0.4, 0.7, 0.1, 0.4, 0.5]
+      const result = callCount < 9 ? values[callCount] : 0.5
+      callCount++
+      return result
+    })
+    vi.stubGlobal('Math', {
+      ...Math,
+      random: mockRandom,
+      floor: Math.floor,
+    })
+    try {
+      const cpf = generateCPF()
+      expect(cpf).toHaveLength(11)
+      expect(validateCPF(cpf)).toBe(true)
+    } finally {
+      vi.unstubAllGlobals()
+    }
+  })
+
+  it('handles second check digit remainder === 10', () => {
+    // Mock to force digits that yield remainder 10 for second check
+    let callCount = 0
+    const mockRandom = vi.fn(() => {
+      // Returns sequence that makes first digit calculation, then second gives remainder 10
+      const values = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1, 0.8]
+      const result = callCount < 9 ? values[callCount] : 0.5
+      callCount++
+      return result
+    })
+    vi.stubGlobal('Math', {
+      ...Math,
+      random: mockRandom,
+      floor: Math.floor,
+    })
+    try {
+      const cpf = generateCPF()
+      expect(cpf).toHaveLength(11)
+      expect(validateCPF(cpf)).toBe(true)
+    } finally {
+      vi.unstubAllGlobals()
+    }
   })
 })
