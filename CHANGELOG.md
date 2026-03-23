@@ -1,5 +1,11 @@
 # brazuka-utils
 
+## 1.1.0
+
+### Minor Changes
+
+- 90a63d7: feat: add support for alphanumeric CNPJ format and related generation functions
+
 ## 1.0.0
 
 ### Major Changes
