@@ -47,14 +47,30 @@ generateCPF()                 // '52998224725' (CPF válido aleatório para test
 ### CNPJ
 
 ```ts
-import { validateCNPJ, formatCNPJ } from 'brazuka-utils/cnpj'
+import { validateCNPJ, formatCNPJ, generateCNPJ, generateAlphanumericCNPJ } from 'brazuka-utils/cnpj'
 
+// CNPJ numérico (formato atual)
 validateCNPJ('11.222.333/0001-81') // true
 validateCNPJ('11222333000181')     // true
-validateCNPJ('11.111.111/1111-11') // false
+validateCNPJ('11.111.111/1111-11') // false (todos os caracteres iguais)
 
 formatCNPJ('11222333000181')       // '11.222.333/0001-81'
 formatCNPJ('inválido')             // lança InvalidInputError
+
+// CNPJ alfanumérico (IN RFB nº 2229/2024 — a partir de julho de 2026)
+// As 12 primeiras posições aceitam letras (A–Z) e dígitos; os 2 dígitos verificadores continuam numéricos.
+// O algoritmo mod-11 é o mesmo, com letras mapeadas para base-36 (A=10…Z=35).
+// Todos os CNPJs numéricos existentes continuam completamente válidos.
+validateCNPJ('AA.000.000/0010-66') // true
+validateCNPJ('AA000000001066')     // true
+validateCNPJ('B3.CD5.E6F/7G8H-84') // true
+
+formatCNPJ('AA000000001066')        // 'AA.000.000/0010-66'
+formatCNPJ('B3CD5E6F7G8H84')       // 'B3.CD5.E6F/7G8H-84'
+
+// Geração — somente para testes
+generateCNPJ()                // '11222333000181' (CNPJ numérico válido aleatório)
+generateAlphanumericCNPJ()    // 'B3CD5E6F7G8H84' (CNPJ alfanumérico válido aleatório)
 ```
 
 ### CEP
@@ -143,6 +159,7 @@ try {
 - **TypeScript-first** — definições de tipo completas incluídas
 - **Formato duplo** — builds ESM e CJS
 - **Validação rigorosa** — segue algoritmos oficiais (mod-11 para CPF/CNPJ, validação de DDD para telefones)
+- **CNPJ alfanumérico** — suporte ao novo formato IN RFB nº 2229/2024 (letras A–Z nas 12 primeiras posições, efetivo a partir de julho de 2026); totalmente retrocompatível com CNPJs numéricos existentes
 - **Fallback automático** — busca de CEP com múltiplos provedores
 
 ## Requisitos

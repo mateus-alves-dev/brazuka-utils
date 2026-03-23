@@ -2,7 +2,7 @@
 export { validateCPF, formatCPF, generateCPF } from './cpf/index.js'
 
 // CNPJ
-export { validateCNPJ, formatCNPJ } from './cnpj/index.js'
+export { validateCNPJ, formatCNPJ, generateCNPJ, generateAlphanumericCNPJ } from './cnpj/index.js'
 
 // CEP
 export { validateCEP, lookupCEP } from './cep/index.js'
