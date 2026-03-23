@@ -1,6 +1,6 @@
 {
   "name": "brazuka-utils",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A modern TypeScript utility library for Brazilian developers — CPF, CNPJ, CEP, phone, currency, plate validation, formatting, and lookup.",
   "type": "module",
   "main": "./dist/index.cjs",
