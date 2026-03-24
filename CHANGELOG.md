@@ -1,5 +1,11 @@
 # brazuka-utils
 
+## 1.1.1
+
+### Patch Changes
+
+- 1e93206: security updates
+
 ## 1.1.0
 
 ### Minor Changes
