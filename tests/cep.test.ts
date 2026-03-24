@@ -197,6 +197,49 @@ describe('lookupCEP', () => {
     expect(result).toBeNull()
   })
 
+  it('handles BrasilAPI returning object with missing fields (triggers ?? fallbacks)', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({}),
+      }),
+    )
+
+    const result = await lookupCEP('01001000')
+    expect(result).toEqual({
+      cep: '',
+      state: '',
+      city: '',
+      neighborhood: '',
+      street: '',
+      provider: 'BrasilAPI',
+    })
+  })
+
+  it('handles ViaCEP returning object with missing fields (triggers ?? fallbacks)', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi
+        .fn()
+        .mockResolvedValueOnce({ ok: false, status: 404 })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve({}),
+        }),
+    )
+
+    const result = await lookupCEP('01001000')
+    expect(result).toEqual({
+      cep: '',
+      state: '',
+      city: '',
+      neighborhood: '',
+      street: '',
+      provider: 'ViaCEP',
+    })
+  })
+
   it('accepts formatted CEP with hyphen', async () => {
     const mockResponse = {
       cep: '01001000',

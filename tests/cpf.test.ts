@@ -26,8 +26,13 @@ describe('validateCPF', () => {
     expect(validateCPF('99999999999')).toBe(false)
   })
 
-  it('rejects CPF with wrong check digits', () => {
+  it('rejects CPF with wrong check digits (fails at second check digit)', () => {
     expect(validateCPF('123.456.789-00')).toBe(false)
+  })
+
+  it('rejects CPF with wrong first check digit (fails at first check digit)', () => {
+    // 529.982.247 → computed first digit = 2, but providing 0 → fails at line 18
+    expect(validateCPF('52998224700')).toBe(false)
   })
 
   it('rejects CPF with wrong length', () => {
@@ -108,11 +113,10 @@ describe('generateCPF', () => {
     // Using vi.stubGlobal to control Math.random
     let callCount = 0
     const mockRandom = vi.fn(() => {
-      // Returns sequence: [1, 3, 1, 5, 4, 7, 1, 4, 5] for first 9 calls
-      // Sum = 1*10 + 3*9 + 1*8 + 5*7 + 4*6 + 7*5 + 1*4 + 4*3 + 5*2
-      //     = 10 + 27 + 8 + 35 + 24 + 35 + 4 + 12 + 10 = 165
-      // (165 * 10) % 11 = 1650 % 11 = 10 ✓
-      const values = [0.1, 0.3, 0.1, 0.5, 0.4, 0.7, 0.1, 0.4, 0.5]
+      // digits = [0,0,0,0,0,0,0,4,0]
+      // sum = 4*3 = 12
+      // (12 * 10) % 11 = 120 % 11 = 10 ✓ → remainder becomes 0
+      const values = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.4, 0.0]
       const result = callCount < 9 ? values[callCount] : 0.5
       callCount++
       return result

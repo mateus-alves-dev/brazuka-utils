@@ -26,8 +26,13 @@ describe('validateCNPJ', () => {
     expect(validateCNPJ('22222222222222')).toBe(false)
   })
 
-  it('rejects CNPJ with wrong check digits', () => {
+  it('rejects CNPJ with wrong second check digit', () => {
     expect(validateCNPJ('11.222.333/0001-82')).toBe(false)
+  })
+
+  it('rejects CNPJ with wrong first check digit (fails at first check)', () => {
+    // firstCheck for 112223330001 = 8, but raw[12]='0' → 8 !== 0 → return false at first check
+    expect(validateCNPJ('11222333000100')).toBe(false)
   })
 
   it('rejects CNPJ with wrong length', () => {
@@ -116,8 +121,13 @@ describe('validateCNPJ — alphanumeric (IN RFB 2229/2024)', () => {
     expect(validateCNPJ('AA0000000010A6')).toBe(false)
   })
 
-  it('rejects CNPJ with a letter in check digit position 13', () => {
+  it('rejects CNPJ with wrong second check digit', () => {
     expect(validateCNPJ('AA000000001060')).toBe(false)
+  })
+
+  it('rejects CNPJ with a letter in check digit position 13 (digit at 12, letter at 13)', () => {
+    // raw[12]='6' is a digit → first condition false; raw[13]='A' is not → second condition true
+    expect(validateCNPJ('AA00000000106A')).toBe(false)
   })
 
   it('rejects all-same-letter CNPJ', () => {

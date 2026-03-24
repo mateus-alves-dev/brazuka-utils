@@ -1,5 +1,12 @@
 # brazuka-utils
 
+[![npm version](https://img.shields.io/npm/v/brazuka-utils.svg)](https://www.npmjs.com/package/brazuka-utils)
+[![npm downloads](https://img.shields.io/npm/dm/brazuka-utils.svg)](https://www.npmjs.com/package/brazuka-utils)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/mateus-alves-dev/brazuka-utils/blob/main/LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5%2B-3178c6.svg)](https://www.typescriptlang.org/)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/mateus-alves-dev/brazuka-utils)
+[![Zero dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen.svg)](https://github.com/mateus-alves-dev/brazuka-utils/blob/main/package.json)
+
 Uma moderna biblioteca de utilitários TypeScript para desenvolvedores brasileiros.  
 Validação, formatação e busca de dados para CPF, CNPJ, CEP, telefone, moeda e placas veiculares — com zero dependências e suporte completo a tree-shaking.
 
