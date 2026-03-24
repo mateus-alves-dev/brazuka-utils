@@ -105,8 +105,16 @@
     "utilities",
     "typescript"
   ],
-  "author": "",
+  "author": "Mateus Alves (https://github.com/mateus-alves-dev)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateus-alves-dev/brazuka-utils.git"
+  },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "engines": {
     "node": ">=18"
   },
