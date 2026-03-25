@@ -1,5 +1,11 @@
 # brazuka-utils
 
+## 1.1.3
+
+### Patch Changes
+
+- 9b7e245: refactor: simplify DDDs definition and update tsup config for sourcemap and minification
+
 ## 1.1.2
 
 ### Patch Changes
