@@ -1,5 +1,11 @@
 # brazuka-utils
 
+## 1.1.2
+
+### Patch Changes
+
+- eef12f9: feat: update README with additional badges and improve test coverage for CNPJ, CPF, and CEP validation
+
 ## 1.1.1
 
 ### Patch Changes
